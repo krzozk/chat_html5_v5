@@ -6,7 +6,7 @@ var socketio = require("socket.io");
 
 var app = express();
 var servidor = http.createServer(app);
-servidor.listen(8021);
+servidor.listen(8080);
 
 //---- configuracion de carpetas estaticas ----
 app.use("/css", express.static(__dirname + "/css"));
@@ -35,7 +35,7 @@ io.sockets.on("connection", function(socket){
 	socket.on("mensaje_al_servidor",function(datosCliente){
 		//representa a todos los usuarios conectados
 		//emit = produce un evento que puede escuchar el cliente o el servidor
-		io.socket.emit("mensaje_al_cliente", datosCliente);
+		io.sockets.emit("mensaje_al_cliente", datosCliente);
 	});
 });
 

@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			$(function(){
 				/* nos conectamos al web socket definido en el servidor  comentar con astersicos por bug de linkedin de dust*/
-				var socket = io.connect("http://localhost:8021");
+				var socket = io.connect("http://localhost:8080");
 				socket.on("mensaje_al_cliente",function(datosServidor){
 					var mensajes = $("#mensajes");
 					var mensaje = "<div class='mensaje'></div><span>"+datosServidor.nombre+" :</span>"+datosServidor.mensaje+"</div>"; 

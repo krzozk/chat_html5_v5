@@ -10,8 +10,37 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		-->
 		<script src="javascript/jquery-1.10.2.min.js"></script>
-
-		<script type="text/javascript"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				/* nos conectamos al web socket definido en el servidor  comentar con astersicos por bug de linkedin de dust*/
+				var socket = io.connect("http://localhost:8021");
+				socket.on("mensaje_al_cliente",function(datosServidor){
+					var mensajes = $("#mensajes");
+					var mensaje = "<div class='mensaje'></div><span>"+datosServidor.nombre+" :</span>"+datosServidor.mensaje+"</div>"; 
+					 
+					mensajes.append(mensaje);
+				});
+				
+				/*boton es un bojeto de jquery*/
+				var boton = $("#boton");
+				
+				boton.click(function(){
+					
+					var mensajeCaja = $("#mensaje-usuario");
+					var mensaje = mensajeCaja.val();
+					var usuario = $("#nombre-usuario");
+					var nombre = usuario.val();
+					
+					socket.emit("mensaje_al_servidor",{
+						mensaje: mensaje,
+						nombre:nombre
+					});
+					
+				});
+				
+			});
+		</script>
 	</head>
 	<body>
 		<div id="chat">
@@ -21,12 +50,6 @@
 
 			<!-- caja de mensajes de los nuevos usuarios -->
 			<div id="mensajes">
-				<div class="mensaje">
-					<span>Ismael dice:</span> bla bla bla
-				</div>
-				<div class="mensaje">
-					<span>Ismael dice:</span> bla bla bla
-				</div>
 			</div>
 
 			<!-- mensaje del usuario -->
